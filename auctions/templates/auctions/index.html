@@ -1,0 +1,35 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+{% if products %}
+    <h2 class="title"> Active Listings </h2>
+{% if category %}
+    <h4 class="title">{{ category }} {% endif %} </h4>
+{%endif%}
+<div class="row row-cols-2 row-cols-md-4">
+    {% for product in products %}
+        <div class="card">
+            <a href="{% url 'listing' product.id %}"><h3 class="card-title" style="vertical-align:middle;">{{ product.title }}</h3></a>
+            {%if product.image_url %}
+                <img src="{{ product.image_url }}"
+                class="card-img-top" alt="{{ product.title }}" height="300px">
+            {% else %}
+                <img src="https://eagle-sensors.com/wp-content/uploads/unavailable-image.jpg"
+                class="card-img-top" alt="{{ product.title }}" height="300px">
+            {% endif %}
+            <div class="card-body">
+                <h3><strong>$ {{ product.price }}</strong></h3>
+                {%if product.description %}
+                    <h6 class="card-subtitle">{{ product.description }}</h6>
+                {% endif %}
+                <div class="footer-card">
+                    <h6  class="card-text">Created {{ product.date }}</h6>
+                    <a href="{% url 'listing' product.id %}">View more details</a>
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <h1>No listing available</h1>
+    {% endfor %}   
+</div>
+{% endblock %}

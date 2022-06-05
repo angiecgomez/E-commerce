@@ -1,0 +1,20 @@
+{% extends "auctions/layout.html" %}
+
+{% block title %}
+
+    Watchlist
+    
+{% endblock %}
+
+{% block body %}
+    <h1>Watchlist</h1>
+    <ul class="list-group">
+        {% for auction in watchlist %}
+            <li class="list-group-item">
+                <a href="{% url 'listing' auction.product.id %}"> {{ auction.product.title }}</a>
+            </li>
+        {% empty %}
+            You have not added any auction for the watchlist
+        {% endfor %}
+    </ul>
+{% endblock %}
